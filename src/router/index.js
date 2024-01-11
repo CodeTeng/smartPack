@@ -114,6 +114,7 @@ export const routes = [
   }
 ]
 
+// 创建 Router 实例  通过箭头函数
 const createRouter = () => new Router({
   // mode: 'history', // require service support
   mode: 'history',

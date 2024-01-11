@@ -8,11 +8,12 @@
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
           <router-link to="/">
-            <el-dropdown-item> 首页 </el-dropdown-item>
+            <el-dropdown-item> 首页</el-dropdown-item>
           </router-link>
           <a target="_blank">
-            <el-dropdown-item> 项目地址 </el-dropdown-item>
+            <el-dropdown-item> 项目地址</el-dropdown-item>
           </a>
+          <!--    组件不能绑定原生事件      -->
           <el-dropdown-item divided @click.native="logout">
             <span style="display: block">退出登录</span>
           </el-dropdown-item>
@@ -27,6 +28,9 @@ export default {
   methods: {
     // 退出登录
     logout() {
+      // 清除 Vuex 和 Cookie
+      this.$store.commit('user/removeToken')
+      // this.$route.fullPath 记住当前退出的路由页
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     }
   }
@@ -39,6 +43,7 @@ export default {
   line-height: 64px;
   overflow: hidden;
   position: relative;
+
   .app-breadcrumb {
     display: inline-block;
     font-size: 18px;
@@ -110,10 +115,12 @@ export default {
 
     .avatar-container {
       margin-right: 30px;
+
       .avatar-wrapper {
         margin-top: 5px;
         position: relative;
-        .name{
+
+        .name {
           font-weight: 600;
           cursor: pointer;
         }

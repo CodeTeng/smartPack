@@ -1,4 +1,5 @@
 import Vue from 'vue'
+// reset.css 清楚浏览器默认样式
 import 'normalize.css/normalize.css'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
