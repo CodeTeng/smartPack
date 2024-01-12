@@ -82,22 +82,18 @@ export default {
         // 下面这样写不符合 Vuex 规范
         // const res = await loginAPI(this.loginForm)
         // this.$store.commit('user/setToken', res.data.token)
-        try {
-          await this.$store.dispatch('user/loginAction', this.loginForm)
-          if (this.rememberMe) {
-            localStorage.setItem(FORM_KEY, JSON.stringify(this.loginForm))
-          } else {
-            localStorage.removeItem(FORM_KEY)
-          }
-          // 获取上次退出的路由
-          const url = this.$route.query.redirect
-          if (url) {
-            this.$router.push(url)
-          } else {
-            this.$router.push('/')
-          }
-        } catch (error) {
-          this.$message.error(error.response.data.msg)
+        await this.$store.dispatch('user/loginAction', this.loginForm)
+        if (this.rememberMe) {
+          localStorage.setItem(FORM_KEY, JSON.stringify(this.loginForm))
+        } else {
+          localStorage.removeItem(FORM_KEY)
+        }
+        // 获取上次退出的路由
+        const url = this.$route.query.redirect
+        if (url) {
+          this.$router.push(url)
+        } else {
+          this.$router.push('/')
         }
       })
     }
