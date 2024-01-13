@@ -87,3 +87,14 @@ export function getCardDetailApi(id) {
     method: 'get'
   })
 }
+
+/**
+ * 获取月卡占有率
+ * @returns {*}
+ */
+export function getCardProportionApi() {
+  return request({
+    url: '/parking/card/proportion',
+    method: 'get'
+  })
+}

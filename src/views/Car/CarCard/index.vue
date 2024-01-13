@@ -16,10 +16,11 @@
     <div class="create-container">
       <el-button type="primary" @click="$router.push('/car/addMonthCard')">添加月卡</el-button>
       <el-button @click="batchDelete">批量删除</el-button>
+      <el-tag class="create-tag el-icon-warning"> 本园区共计 {{ proportion.cardCount }} 个车位，月卡用户 {{ proportion.spaceNumber }} 人，车位占有率 {{ proportion.proportion }} </el-tag>
     </div>
     <!-- 表格区域 -->
     <div class="table">
-      <el-table style="width: 100%" :data="cardList" @selection-change="handleSelectionChange">
+      <el-table style="width: 100%" v-loading="loading" :data="cardList" @selection-change="handleSelectionChange">
         <el-table-column
           type="selection"
           width="55">
@@ -56,7 +57,7 @@
 </template>
 
 <script>
-import { getCardListApi, deleteCardApi } from '@/api/card'
+import { getCardListApi, deleteCardApi, getCardProportionApi } from '@/api/card'
 
 export default {
   name: 'Card',
@@ -70,8 +71,14 @@ export default {
         // axios 中 如果参数为 null 则不加入其中
         cardStatus: null
       },
+      proportion: {
+        cardCount: 0,
+        spaceNumber: 0,
+        proportion: ''
+      },
       cardList: [],
       total: 0,
+      loading: false,
       statusList: [
         {
           label: '全部',
@@ -91,12 +98,19 @@ export default {
   },
   created() {
     this.getCardList()
+    this.getCardProportion()
   },
   methods: {
     async getCardList() {
+      this.loading = true
       const res = await getCardListApi(this.params)
       this.cardList = res.data.rows
       this.total = res.data.total
+      this.loading = false
+    },
+    async getCardProportion() {
+      const res = await getCardProportionApi()
+      this.proportion = res.data
     },
     formatStatus(row, column, cellValue) {
       // 格式化状态
@@ -211,6 +225,11 @@ export default {
 
 .create-container {
   margin: 10px 0px;
+}
+
+.create-container .create-tag {
+  margin: auto;
+  margin-left: 700px;
 }
 
 .page-container {
