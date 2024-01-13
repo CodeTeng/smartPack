@@ -44,7 +44,6 @@ export const routes = [
       component: () => import('@/views/Park/Enterprise/index')
     }]
   },
-
   {
     path: '/parking',
     component: Layout,
@@ -72,6 +71,18 @@ export const routes = [
       component: () => import('@/views/Car/CarRule'),
       meta: { title: '计费规则管理' }
     }]
+  },
+  {
+    path: '/car/addMonthCard',
+    component: () => import('@/views/Car/CarCard/AddMonthCard.vue')
+  },
+  {
+    path: '/car/renewMonthCard',
+    component: () => import('@/views/Car/CarCard/RenewMonthCard.vue')
+  },
+  {
+    path: '/car/viewMonthCard',
+    component: () => import('@/views/Car/CarCard/ViewMonthCard.vue')
   },
   {
     path: '/pole',
