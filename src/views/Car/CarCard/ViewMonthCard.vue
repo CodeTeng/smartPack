@@ -141,7 +141,6 @@ export default {
       span {
         margin-right: 4px;
       }
-
       .arrow {
         cursor: pointer;
       }
@@ -155,24 +154,19 @@ export default {
   .add-main {
     background: #f4f6f8;
     padding: 20px 130px;
-
     .form-container {
       background-color: #fff;
-
       .title {
         height: 60px;
         line-height: 60px;
         padding-left: 20px;
       }
-
       .form {
         margin-bottom: 20px;
         padding: 20px 65px 24px;
-
         .el-form {
           display: flex;
           flex-wrap: wrap;
-
           .el-form-item {
             width: 50%;
           }

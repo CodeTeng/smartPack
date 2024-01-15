@@ -95,6 +95,7 @@ export default {
         } else {
           this.$router.push('/')
         }
+        this.$message.success('登录成功')
       })
     }
   }
