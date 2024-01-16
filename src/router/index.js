@@ -127,6 +127,10 @@ export const routes = [
     }]
   },
   {
+    path: '/sys/role/add',
+    component: () => import('@/views/System/Role/AddRole')
+  },
+  {
     path: '/404',
     component: () => import('@/views/404'),
     hidden: true
