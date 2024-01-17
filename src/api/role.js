@@ -45,3 +45,41 @@ export function getSysRoleUserListApi(roleId, params) {
   })
 }
 
+/**
+ * 添加角色
+ * @param data
+ * @returns {*}
+ */
+export function addSysRoleApi(data) {
+  return request({
+    url: '/park/sys/role',
+    method: 'post',
+    data
+  })
+}
+
+/**
+ * 修改角色
+ * @param data
+ * @returns {*}
+ */
+export function updateSysRoleApi(data) {
+  return request({
+    url: '/park/sys/role',
+    method: 'put',
+    data
+  })
+}
+
+/**
+ * 删除角色
+ * @param id
+ * @returns {*}
+ */
+export function deleteSysRoleApi(id) {
+  return request({
+    url: `/park/sys/role/${id}`,
+    method: 'delete'
+  })
+}
+

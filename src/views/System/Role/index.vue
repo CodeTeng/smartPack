@@ -12,7 +12,15 @@
           {{ item.roleName }}
         </div>
         <div class="more">
-          <svg-icon icon-class="more"/>
+          <el-dropdown>
+            <span class="el-dropdown-link">
+              <svg-icon icon-class="more" />
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item @click.native="$router.push(`/sys/role/add/?id=${item.roleId}`)">编辑角色</el-dropdown-item>
+              <el-dropdown-item @click.native="deleteRole(item.roleId)">删除</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </div>
       </div>
       <el-button class="addBtn" size="mini" @click="$router.push('/sys/role/add')">添加角色</el-button>
@@ -56,23 +64,23 @@
               />
             </el-table>
           </div>
+          <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="params.page"
+            :page-sizes="[10, 20, 30, 40]"
+            :page-size="params.pageSize"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="total">
+          </el-pagination>
         </el-tab-pane>
-        <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page="params.page"
-          :page-sizes="[10, 20, 30, 40]"
-          :page-size="params.pageSize"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="total">
-        </el-pagination>
       </el-tabs>
     </div>
   </div>
 </template>
 
 <script>
-import { getSysRoleListApi, getSysPermissionTreeApi, getSysRoleDetailApi, getSysRoleUserListApi } from '@/api/role'
+import { getSysRoleListApi, getSysPermissionTreeApi, getSysRoleDetailApi, getSysRoleUserListApi, deleteSysRoleApi } from '@/api/role'
 
 export default {
   name: 'Role',
@@ -115,6 +123,27 @@ export default {
       const perms = res.data.perms
       this.$refs.tree.forEach((tree, index) => {
         tree.setCheckedKeys(perms[index])
+      })
+    },
+    async deleteRole(roleId) {
+      this.$confirm('此操作将永久删除, 是否继续?', '温馨提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async() => {
+        await deleteSysRoleApi(roleId)
+        // 如果删除的是最后一条数据 获取列表时 应该让 page--
+        if (this.userList.length === 1 && this.params.page > 1) {
+          this.params.page--
+        }
+        this.$message({
+          type: 'success',
+          message: '删除角色成功!'
+        })
+        await this.getSysRoleList()
+        await this.getPermissionTree()
+        this.menuChange(0)
+      }).catch(() => {
       })
     },
     async menuChange(index) {
