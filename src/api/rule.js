@@ -62,3 +62,13 @@ export function updateParkingRuleApi(data) {
     data
   })
 }
+
+/**
+ * 获取计费规则下拉列表
+ * @returns {*}
+ */
+export function getRuleDropListApi() {
+  return request({
+    url: '/parking/rule/dropList'
+  })
+}
