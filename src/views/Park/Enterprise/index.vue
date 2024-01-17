@@ -7,7 +7,7 @@
       <el-button type="primary" @click="search">查询</el-button>
     </div>
     <div class="create-container">
-      <el-button type="primary" @click="$router.push('/enterprise/add')">添加企业</el-button>
+      <el-button type="primary" v-permission="'park:enterprise:add_edit'" @click="$router.push('/enterprise/add')">添加企业</el-button>
     </div>
     <!-- 表格区域 -->
     <div class="table">
@@ -27,8 +27,8 @@
               </el-table-column>
               <el-table-column label="操作" width="180">
                 <template #default="rentObj">
-                  <el-button size="mini" type="text" :disabled="rentObj.row.status === 3" @click="rentOut(rentObj.row.id)">退租</el-button>
-                  <el-button size="mini" type="text" :disabled="rentObj.row.status !== 3" @click="deleteRent(rentObj.row.id)">删除</el-button>
+                  <el-button size="mini" type="text" :disabled="rentObj.row.status === 3" v-permission="'park:rent:add_surrender'" @click="rentOut(rentObj.row.id)">退租</el-button>
+                  <el-button size="mini" type="text" :disabled="rentObj.row.status !== 3" v-permission="'park:rent:remove'" @click="deleteRent(rentObj.row.id)">删除</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -43,10 +43,10 @@
         />
         <el-table-column label="操作">
           <template #default="scope">
-            <el-button size="mini" type="text" @click="addContract(scope.row.id)">添加合同</el-button>
-            <el-button size="mini" type="text" @click="$router.push(`/enterprise/detail/${scope.row.id}`)">查看</el-button>
-            <el-button size="mini" type="text" @click="editEnterprise(scope.row.id)">编辑</el-button>
-            <el-button size="mini" type="text" @click="deleteEnterprise(scope.row.id)">删除</el-button>
+            <el-button size="mini" type="text" v-permission="'park:rent:add_surrender'" @click="addContract(scope.row.id)">添加合同</el-button>
+            <el-button size="mini" type="text" v-permission="'park:enterprise:query'" @click="$router.push(`/enterprise/detail/${scope.row.id}`)">查看</el-button>
+            <el-button size="mini" type="text" v-permission="'park:enterprise:add_edit'" @click="editEnterprise(scope.row.id)">编辑</el-button>
+            <el-button size="mini" type="text" v-permission="'park:enterprise:remove'" @click="deleteEnterprise(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>

@@ -17,6 +17,8 @@ import '@/icons'
 
 import '@/permission'
 
+import '@/directive'
+
 Vue.use(ElementUI)
 
 Vue.config.productionTip = false

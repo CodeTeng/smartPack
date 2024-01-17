@@ -30,6 +30,8 @@ export default {
     logout() {
       // 清除 Vuex 和 Cookie
       this.$store.commit('user/removeToken')
+      // 清空路由规则
+      this.$store.commit('menu/clearMenuList')
       // this.$route.fullPath 记住当前退出的路由页
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     }

@@ -28,7 +28,13 @@ export default {
   components: { SidebarItem, Logo },
   computed: {
     routes() {
-      return this.$router.options.routes
+      // this.$router.option.routes 获取的是创建路由对象时传入的路由规则
+      // 左侧菜单的渲染是通过 this.$router.option.routes 来进行渲染的
+      // 权限标识  只需要给 this.$router.option.routes 进行对比
+      // 但是 this.$router.option.routes 不是响应式的
+      // 只能取创建路由对象时传入的路由规则，后续通过 addRoute 添加的路由是获取不到的
+      // return this.$router.options.routes
+      return this.$store.state.menu.menuList
     },
     activeMenu() {
       const route = this.$route

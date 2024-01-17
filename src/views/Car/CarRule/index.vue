@@ -1,7 +1,7 @@
 <template>
   <div class="rule-container">
     <div class="create-container">
-      <el-button type="primary" @click="addRule">增加停车计费规则</el-button>
+      <el-button type="primary" @click="addRule" v-permission="'parking:rule:add_edit'">增加停车计费规则</el-button>
       <el-button @click="exportExcel">导出Excel</el-button>
     </div>
     <!-- 表格区域 -->
@@ -20,8 +20,8 @@
         <el-table-column label="计费规则" prop="ruleNameView"/>
         <el-table-column label="操作" fixed="right" width="120">
           <template #default="scope">
-            <el-button size="mini" type="text" @click="editRule(scope.row.id)">编辑</el-button>
-            <el-button size="mini" type="text" @click="deleteRule(scope.row.id)">删除</el-button>
+            <el-button size="mini" type="text" @click="editRule(scope.row.id)" v-permission="'parking:rule:add_edit'">编辑</el-button>
+            <el-button size="mini" type="text" @click="deleteRule(scope.row.id)" v-permission="'parking:rule:remove'">删除</el-button>
           </template>
         </el-table-column>
       </el-table>

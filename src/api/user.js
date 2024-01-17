@@ -12,3 +12,14 @@ export function loginAPI(data) {
     data
   })
 }
+
+/**
+ * 查询登录人用户、角色和权限信息
+ * @returns {*}
+ */
+export function getUserProfileApi() {
+  return request({
+    url: '/park/user/profile',
+    method: 'get'
+  })
+}

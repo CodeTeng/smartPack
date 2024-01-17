@@ -14,8 +14,8 @@
     </div>
     <!-- 新增删除操作区域 -->
     <div class="create-container">
-      <el-button type="primary" @click="$router.push('/car/addMonthCard')">添加月卡</el-button>
-      <el-button @click="batchDelete">批量删除</el-button>
+      <el-button type="primary" v-permission="'parking:card:add_edit'" @click="$router.push('/car/addMonthCard')">添加月卡</el-button>
+      <el-button v-permission="'parking:card:remove'" @click="batchDelete">批量删除</el-button>
       <el-tag class="create-tag el-icon-warning"> 本园区共计 {{ proportion.cardCount }} 个车位，月卡用户 {{ proportion.spaceNumber }} 人，车位占有率 {{ proportion.proportion }} </el-tag>
     </div>
     <!-- 表格区域 -->
@@ -34,10 +34,10 @@
         <el-table-column label="状态" prop="cardStatus" :formatter="formatStatus"/>
         <el-table-column label="操作" fixed="right" width="180">
           <template #default="scope">
-            <el-button size="mini" type="text" @click="renewCard(scope.row.id)">续费</el-button>
-            <el-button size="mini" type="text" @click="viewCard(scope.row.id)">查看</el-button>
-            <el-button size="mini" type="text" @click="editCard(scope.row.id)">编辑</el-button>
-            <el-button size="mini" type="text" @click="deleteCard(scope.row.id)">删除</el-button>
+            <el-button size="mini" type="text" v-permissio="'parking:card:recharge'" @click="renewCard(scope.row.id)">续费</el-button>
+            <el-button size="mini" type="text" v-permission="'parking:card:query'" @click="viewCard(scope.row.id)">查看</el-button>
+            <el-button size="mini" type="text" v-permission="'parking:card:add_edit'" @click="editCard(scope.row.id)">编辑</el-button>
+            <el-button size="mini" type="text" v-permission="'parking:card:remove'" @click="deleteCard(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
