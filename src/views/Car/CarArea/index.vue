@@ -1,7 +1,7 @@
 <template>
   <div class="building-container">
     <div class="create-container">
-      <el-button type="primary" @click="addArea">添加区域</el-button>
+      <el-button type="primary" v-permission="'parking:area:add_edit'" @click="addArea">添加区域</el-button>
     </div>
     <!-- 表格区域 -->
     <div class="table">
@@ -43,8 +43,8 @@
         />
         <el-table-column label="操作">
           <template #default="scope">
-            <el-button size="mini" type="text" @click="editArea(scope.row.id)">编辑</el-button>
-            <el-button size="mini" type="text" @click="deleteArea(scope.row.id)">删除</el-button>
+            <el-button size="mini" type="text" v-permission="'parking:area:add_edit'" @click="editArea(scope.row.id)">编辑</el-button>
+            <el-button size="mini" type="text" v-permission="'parking:area:remove'" @click="deleteArea(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -158,10 +158,6 @@ export default {
       this.areaList = res.data.rows
       this.loading = false
     },
-    addArea() {
-      this.dialogVisible = true
-      this.getRuleDropList()
-    },
     async getRuleDropList() {
       const res = await getRuleDropListApi()
       this.ruleList = res.data
@@ -171,9 +167,25 @@ export default {
       delete this.addForm.id
       this.$refs.addForm.resetFields()
     },
+    addArea() {
+      this.dialogVisible = true
+      this.getRuleDropList()
+    },
     async editArea(id) {
-      // this.dialogVisible = true
-      this.$message.info('后端未提供详情接口，无法回显')
+      this.dialogVisible = true
+      // 手动回显
+      this.areaList.forEach(item => {
+        if (item.id === id) {
+          this.addForm = {
+            id: id,
+            areaName: item.areaName,
+            spaceNumber: item.spaceNumber,
+            areaProportion: item.areaProportion,
+            ruleId: item.ruleId,
+            remark: item.remark
+          }
+        }
+      })
     },
     async deleteArea(id) {
       this.$confirm('此操作将永久删除, 是否继续?', '温馨提示', {
