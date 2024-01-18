@@ -50,3 +50,14 @@ export function addAreaApi(data) {
     data
   })
 }
+
+/**
+ * 获取关联区域下拉列表
+ * @returns {*}
+ */
+export function getAreaDropListApi() {
+  return request({
+    url: '/parking/area/dropList',
+    method: 'get'
+  })
+}
