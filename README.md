@@ -8,7 +8,8 @@
 ![image-20240110215300534](https://teng-1310538376.cos.ap-chongqing.myqcloud.com/teng/image-20240110215300534.png)
 
 后台管理系统负责园区内各项数据的管理，前台可视化项目负责重点园区数据的展现
-
+## 前台地址
+https://github.com/CodeTeng/smartScreen
 ## 技术栈
 
 **后台管理平台** 
