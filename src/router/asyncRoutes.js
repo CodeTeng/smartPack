@@ -46,6 +46,17 @@ export default [
     }]
   },
   {
+    path: '/propety/cost',
+    component: Layout,
+    permission: 'property',
+    children: [{
+      path: '',
+      permission: 'property:propertyFee',
+      component: () => import('@/views/Propety/index'),
+      meta: { title: '物业费管理', icon: 'el-icon-truck' }
+    }]
+  },
+  {
     path: '/pole',
     component: Layout,
     permission: 'pole',
