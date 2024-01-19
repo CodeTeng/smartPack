@@ -37,7 +37,7 @@
         :total="total">
       </el-pagination>
     </div>
-    <add-rule :dialogVisible.sync="dialogVisible" :id="id" @getList="getParkingRuleList"/>
+    <add-rule ref="addRule" :dialogVisible.sync="dialogVisible" @getList="getParkingRuleList"/>
   </div>
 </template>
 
@@ -60,8 +60,7 @@ export default {
       },
       total: 0,
       dialogVisible: false,
-      loading: false,
-      id: null
+      loading: false
     }
   },
   created() {
@@ -114,7 +113,8 @@ export default {
     },
     async editRule(id) {
       this.dialogVisible = true
-      this.id = id
+      // 调用子组件方法回显
+      await this.$refs.addRule.getRuleDetail(id)
     },
     async exportExcel() {
       // 创建一个新的工作簿

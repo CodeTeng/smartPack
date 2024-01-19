@@ -1,6 +1,6 @@
 <template>
   <!-- 弹框 -->
-  <el-dialog :visible="dialogVisible" width="600px" :title="this.id ? '编辑规则' : '新增规则'" @close="closeDialog" :close-on-click-modal="false">
+  <el-dialog :visible="dialogVisible" width="600px" :title="addForm.id ? '编辑规则' : '新增规则'" @close="closeDialog" :close-on-click-modal="false">
     <!-- 表单接口 -->
     <div class="form-container">
       <el-form ref="addForm" :model="addForm" :rules="addFormRules" label-position="top">
@@ -91,9 +91,6 @@ export default {
     dialogVisible: {
       type: Boolean,
       default: false
-    },
-    id: {
-      type: Number
     }
   },
   data() {
@@ -197,16 +194,10 @@ export default {
       this.$refs.addForm.clearValidate(['durationTime', 'durationPrice', 'turnPrice', 'partitionFrameTime', 'partitionFramePrice', 'partitionIncreaseTime', 'partitionIncreasePrice'])
     }
   },
-  // beforeUpdate() {
-  //   if (this.id) {
-  //     this.getRuleDetail()
-  //   }
-  // },
   methods: {
-    async getRuleDetail() {
-      const res = await getParkingRuleDetailApi(this.id)
+    async getRuleDetail(id) {
+      const res = await getParkingRuleDetailApi(id)
       this.addForm = res.data
-      console.log(this.addForm)
     },
     closeDialog() {
       // 子组件通知父组件修改
@@ -216,26 +207,42 @@ export default {
       // 3. .sync修饰符 子组件和父组件的数据进行双向绑定 【父组件加上 .sync 之后表示放权给子组件修改props中的数据】 固定语法：this.$emit('update:props传来的值', 要修改的值)
       this.$emit('update:dialogVisible', false)
       this.$refs.addForm.resetFields()
-      this.addForm.chargeCeiling = null
-      this.addForm.freeDuration = null
+      this.addForm = {
+        ruleNumber: '', // 计费规则编号
+        ruleName: '', // 计费规则名称
+        chargeType: 'duration', // 计费规则类型 duration / turn / partition
+        chargeCeiling: null,
+        freeDuration: null,
+        // 时长计费独有字段
+        durationTime: null, // 时长计费单位时间
+        durationPrice: null, // 时长计费单位价格
+        durationType: 'hour',
+        // 按次收费独有字段
+        turnPrice: null,
+        // 分段计费独有字段
+        partitionFrameTime: null, // 段内时间
+        partitionFramePrice: null, // 段内费用
+        partitionIncreaseTime: null, // 超出时间
+        partitionIncreasePrice: null // 超出费为收费价钱
+      }
     },
     confirmAdd() {
       this.$refs.addForm.validate(async flag => {
         if (!flag) return
-        if (this.formData.id) {
+        if (this.addForm.id) {
           await updateParkingRuleApi(this.addForm)
           this.$message.success('修改成功')
         } else {
           await addParkingRuleApi(this.addForm)
           this.$message.success('添加成功')
-          // await this.getParkingRuleList()
-          // 子组件调用父组件的方法
-          // 1. this.$parent
-          // this.$parent.getParkingRuleList()
-          // 2. this.$emit('getParkingRuleList')
-          this.$emit('getList')
-          this.closeDialog()
         }
+        // await this.getParkingRuleList()
+        // 子组件调用父组件的方法
+        // 1. this.$parent
+        // this.$parent.getParkingRuleList()
+        // 2. this.$emit('getParkingRuleList')
+        this.$emit('getList')
+        this.closeDialog()
       })
     }
   }
