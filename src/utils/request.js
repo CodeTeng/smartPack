@@ -4,7 +4,9 @@ import { Message } from 'element-ui'
 import router from '@/router'
 
 const service = axios.create({
-  baseURL: 'https://api-hmzs.itheima.net/v1',
+  // baseURL: 'https://api-hmzs.itheima.net/v1',
+  // 修改为动态环境
+  baseURL: process.env.VUE_APP_BASE_URL,
   timeout: 5000 // request timeout
 })
 
