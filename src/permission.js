@@ -4,11 +4,13 @@ import asyncRoutes from '@/router/asyncRoutes'
 
 const whiteList = ['/login', '/404']
 
+// 处理一级路由权限数据
 function getFirstRoutePermissions(permissionList) {
   const firstPermissionArr = permissionList.map(item => item.split(':')[0])
   return Array.from(new Set(firstPermissionArr))
 }
 
+// 处理二级路由权限数据
 function getSecondRoutePermissions(permissionList) {
   const secondPermissionArr = permissionList.map(item => {
     const permissionArr = item.split(':')
@@ -17,6 +19,7 @@ function getSecondRoutePermissions(permissionList) {
   return Array.from(new Set(secondPermissionArr))
 }
 
+// 得到最终路由
 function getRoutes(firstPermissions, secondPermissions, asyncRoutes) {
   // 判断当前登陆人是否是管理员
   if (firstPermissions.includes('*')) {
