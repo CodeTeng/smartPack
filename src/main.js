@@ -19,6 +19,9 @@ import '@/permission'
 
 import '@/directive'
 
+// 启动微前端配置
+import './registerMicroApp'
+
 Vue.use(ElementUI)
 
 Vue.config.productionTip = false

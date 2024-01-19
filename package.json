@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build:test": "vue-cli-service build --mode test",
     "report": "vue-cli-service build --report"
   },
   "dependencies": {
@@ -15,6 +16,7 @@
     "js-cookie": "^2.2.0",
     "normalize.css": "7.0.0",
     "path-to-regexp": "2.4.0",
+    "qiankun": "^2.10.16",
     "vue": "2.6.10",
     "vue-router": "^3.6.5",
     "vuex": "3.1.0",

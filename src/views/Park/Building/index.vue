@@ -49,8 +49,8 @@
         </el-table-column>
         <el-table-column label="操作" prop="demoFlag">
           <template #default="scope">
-            <el-button size="mini" :disabled="demoFlag === 1" v-permission="'park:building:add_edit'" type="text" @click="editBuilding(scope.row.id)">编辑</el-button>
-            <el-button size="mini" :disabled="demoFlag === 1" type="text" v-permission="'park:building:remove'" @click="deleteBuilding(scope.row.id)">删除</el-button>
+            <el-button size="mini" v-permission="'park:building:add_edit'" type="text" @click="editBuilding(scope.row.id)">编辑</el-button>
+            <el-button size="mini" type="text" v-permission="'park:building:remove'" @click="deleteBuilding(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>

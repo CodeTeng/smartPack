@@ -58,6 +58,13 @@ export const routes = [
 ]
 
 // 创建 Router 实例  通过箭头函数
+// 路由模式两种 history hash
+// 特点：hash #来链接地址和路由。 #后面的路径不会请求到服务端 所以不会出现404
+//      history /来连接地址和路由 /后面的路径会请求服务端。但是项目打完包之后只有一个index.html和favicon.ico 没有其它页面
+//              所以 history 模式下 刷新的时候会出现404
+// 总结 hash模式下 在任何环境都不会出现问题
+//     history模式下 在开发环境不会有问题（webpack提前把404的问题给解决了） 但发布之后就有404的问题
+// 如何解决： Vue官网有答案 一般后端上线的时候进行配置
 const createRouter = () => new Router({
   // mode: 'history', // require service support
   mode: 'history',
