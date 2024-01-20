@@ -5,14 +5,14 @@
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <!-- 用户名称 -->
-          <span class="name">超级管理员</span>
+          <span class="name">用户</span>
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
           <router-link to="/">
             <el-dropdown-item> 首页</el-dropdown-item>
           </router-link>
           <a target="_blank">
-            <el-dropdown-item> 项目地址</el-dropdown-item>
+            <el-dropdown-item> <a href="https://github.com/CodeTeng/smartPack" target="_blank">项目地址</a></el-dropdown-item>
           </a>
           <!--    组件不能绑定原生事件      -->
           <el-dropdown-item divided @click.native="logout">
