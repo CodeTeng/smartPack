@@ -35,6 +35,10 @@ export const routes = [
     component: () => import('@/views/Park/Enterprise/EnterpriseDetail.vue')
   },
   {
+    path: '/warn/detail/:id',
+    component: () => import('@/views/Rod/RodWarn/WarnDetail.vue')
+  },
+  {
     path: '/car/addMonthCard',
     component: () => import('@/views/Car/CarCard/AddMonthCard.vue')
   },
